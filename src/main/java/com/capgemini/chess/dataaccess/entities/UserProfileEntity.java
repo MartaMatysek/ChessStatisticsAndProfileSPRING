@@ -2,7 +2,7 @@ package com.capgemini.chess.dataaccess.entities;
 
 public class UserProfileEntity {
 		
-	private long id;
+	private Long id;
 	private String login;
 	private String password;
 	private String name;
@@ -10,7 +10,7 @@ public class UserProfileEntity {
 	private String email;
 	private String aboutMe;
 	private String lifeMotto;
-	private UserStatisticsEntity userStatisticsEntity;
+	private UserStatisticsEntity userStatistics;
 	
 	public Long getId() {
 		return id;
@@ -75,15 +75,13 @@ public class UserProfileEntity {
 	public void setLifeMotto(String lifeMotto) {
 		this.lifeMotto = lifeMotto;
 	}
-	
-	public UserStatisticsEntity getUserStatisticsEntity() {
-		return userStatisticsEntity;
-	}
-	
-	public void setUserStatisticsEntity(UserStatisticsEntity userStatisticsEntity) {
-		this.userStatisticsEntity = userStatisticsEntity;
-	}
-	
-	
 
+	public UserStatisticsEntity getUserStatistics() {
+		return userStatistics;
+	}
+
+	public void setUserStatistics(UserStatisticsEntity userStatistics) {
+		this.userStatistics = userStatistics;
+	}
+	
 }

@@ -6,5 +6,5 @@ import com.capgemini.chess.service.to.UserStatisticsTO;
 
 public interface ReadService {
 
-	public List<UserStatisticsTO> readRanking();
+	List<UserStatisticsTO> readRanking();
 }

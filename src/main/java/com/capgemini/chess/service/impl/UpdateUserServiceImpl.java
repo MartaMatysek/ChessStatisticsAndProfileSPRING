@@ -4,26 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.chess.exception.UserValidationException;
-import com.capgemini.chess.service.Facade;
-import com.capgemini.chess.service.to.RankingTO;
+import com.capgemini.chess.service.UpdateUserService;
+import com.capgemini.chess.service.ValidationUserService;
+import com.capgemini.chess.service.access.dao.UserDao;
 import com.capgemini.chess.service.to.UserProfileTO;
 
 @Service
-public class FacadeImpl implements Facade {
+public class UpdateUserServiceImpl implements UpdateUserService{
 	
 	@Autowired
-	private RankingServiceImpl rankingService;
+	private ValidationUserService userValidationService;
 	@Autowired
-	private UpdateUserServiceImpl updateUserService;
-
-	@Override
-	public RankingTO getRanking(Long id) throws UserValidationException {
-		return rankingService.getRanking(id);
-	}
+	private UserDao userDao;
 
 	@Override
 	public UserProfileTO updateProfile(UserProfileTO userProfileTO) throws UserValidationException {
-		return updateUserService.updateProfile(userProfileTO);
+		userValidationService.validate(userProfileTO);
+		return userDao.updateProfile(userProfileTO);
 	}
-
 }

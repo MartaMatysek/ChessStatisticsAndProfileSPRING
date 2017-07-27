@@ -13,7 +13,7 @@ public class UserProfileTO {
 	private String email;
 	private String aboutMe;
 	private String lifeMotto;
-	private UserStatisticsTO userStatisticsTO;
+	private UserStatisticsTO userStatistics;
 	
 	public long getId() {
 		return id;
@@ -81,13 +81,12 @@ public class UserProfileTO {
 		this.lifeMotto = lifeMotto;
 	}
 
-	public UserStatisticsTO getUserStatisticsTO() {
-		return userStatisticsTO;
+	public UserStatisticsTO getUserStatistics() {
+		return userStatistics;
 	}
-	public void setUserStatisticsTO(UserStatisticsTO userStatisticsTO) {
-		this.userStatisticsTO = userStatisticsTO;
+
+	public void setUserStatistics(UserStatisticsTO userStatistics) {
+		this.userStatistics = userStatistics;
 	}
-	
-	
 
 }

@@ -45,7 +45,4 @@ public class UserStatisticsEntity {
 	public void setNumberOfDrawMatches(int numberOfDrawMatches) {
 		this.numberOfDrawMatches = numberOfDrawMatches;
 	}
-	
-	
-
 }

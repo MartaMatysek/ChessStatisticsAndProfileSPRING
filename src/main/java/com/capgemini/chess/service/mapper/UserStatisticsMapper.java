@@ -14,7 +14,6 @@ public class UserStatisticsMapper {
 			userStatisticsTO.setNumberOfWonMatches(userStatisticsEntity.getNumberOfWonMatches());
 			userStatisticsTO.setNumberOfLostMatches(userStatisticsEntity.getNumberOfLostMatches());
 			userStatisticsTO.setNumberOfDrawMatches(userStatisticsEntity.getNumberOfDrawMatches());
-			
 			return userStatisticsTO;
 		}
 		
@@ -30,12 +29,9 @@ public class UserStatisticsMapper {
 			userStatisticsEntity.setNumberOfWonMatches(userStatisticsTO.getNumberOfWonMatches());
 			userStatisticsEntity.setNumberOfLostMatches(userStatisticsTO.getNumberOfLostMatches());
 			userStatisticsEntity.setNumberOfDrawMatches(userStatisticsTO.getNumberOfDrawMatches());
-			
 			return userStatisticsEntity;
 		}
 		
 		return null;
 	}
-
-
 }

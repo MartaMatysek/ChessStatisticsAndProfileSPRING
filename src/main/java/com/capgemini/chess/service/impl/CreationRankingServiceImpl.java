@@ -16,20 +16,17 @@ import com.capgemini.chess.service.to.UserStatisticsTO;
 @Service
 public class CreationRankingServiceImpl implements CreationRankingService{
 	
-	private ReadService readService;	
-	
 	@Autowired
-	public CreationRankingServiceImpl(ReadService readService) {
-		this.readService = readService;
-	}
+	private ReadService readService;	
 
+	@Override
 	public RankingTO create(Long id) throws UserValidationException{
 		RankingTO ranking = new RankingTO();
 		List<UserStatisticsTO> listOfUserStatistics = readService.readRanking();
-		ranking.setListOfUserStatistics(sort(listOfUserStatistics));
 		int index = getUserPossition(listOfUserStatistics, id);
 		ranking.setUserRankingPosition(index+1);
 		ranking.setUserLevel(listOfUserStatistics.get(index).getLevel());
+		ranking.setListOfUserStatistics(sort(listOfUserStatistics));
 		
 		return ranking;
 	}

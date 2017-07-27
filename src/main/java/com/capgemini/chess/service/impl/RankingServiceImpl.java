@@ -17,6 +17,7 @@ public class RankingServiceImpl implements RankingService{
 	@Autowired
 	private ValidationUserService rankingValidateService;
 	
+	@Override
 	public RankingTO getRanking(Long id) throws UserValidationException{
 		rankingValidateService.validate(id);
 		return createRankingService.create(id);

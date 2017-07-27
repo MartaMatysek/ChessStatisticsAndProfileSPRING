@@ -9,6 +9,9 @@ public interface UserDao {
 
 	UserProfileTO findById(Long id);
 	
-	List<UserStatisticsTO> readRanking();
+	UserProfileTO findByEmail(String email);
+		
+	UserProfileTO updateProfile(UserProfileTO userProfileTO);
 	
+	List<UserStatisticsTO> readRanking();
 }

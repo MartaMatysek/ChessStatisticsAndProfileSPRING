@@ -45,7 +45,4 @@ public class UserStatisticsTO {
 	public void setNumberOfDrawMatches(int numberOfDrawMatches) {
 		this.numberOfDrawMatches = numberOfDrawMatches;
 	}
-	
-	
-
 }
