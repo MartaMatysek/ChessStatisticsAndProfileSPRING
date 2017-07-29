@@ -4,22 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.chess.exception.UserValidationException;
-import com.capgemini.chess.service.UpdateUserService;
-import com.capgemini.chess.service.ValidationUserService;
+import com.capgemini.chess.service.UserUpdateProfileService;
+import com.capgemini.chess.service.UserValidationService;
 import com.capgemini.chess.service.access.dao.UserDao;
 import com.capgemini.chess.service.to.UserProfileTO;
 
 @Service
-public class UpdateUserServiceImpl implements UpdateUserService{
+public class UserUpdateProfileServiceImpl implements UserUpdateProfileService{
 	
 	@Autowired
-	private ValidationUserService userValidationService;
+	private UserValidationService userValidation;
 	@Autowired
 	private UserDao userDao;
 
 	@Override
-	public UserProfileTO updateProfile(UserProfileTO userProfileTO) throws UserValidationException {
-		userValidationService.validate(userProfileTO);
+	public UserProfileTO update(UserProfileTO userProfileTO) throws UserValidationException {
+		userValidation.validate(userProfileTO);
 		return userDao.updateProfile(userProfileTO);
 	}
 }

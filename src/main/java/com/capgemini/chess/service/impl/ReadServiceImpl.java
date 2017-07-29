@@ -20,5 +20,11 @@ public class ReadServiceImpl implements ReadService {
 		List<UserStatisticsTO> listOfUserStatistics = userDao.readRanking();
 		return listOfUserStatistics;
 	}
+
+	@Override
+	public UserStatisticsTO readUserStatistics(Long id) {
+		UserStatisticsTO userStatisticsTO = userDao.readUserStatistics(id);
+		return userStatisticsTO;
+	}
 	
 }

@@ -8,10 +8,12 @@ import com.capgemini.chess.service.to.UserStatisticsTO;
 public interface UserDao {
 
 	UserProfileTO findById(Long id);
-	
-	UserProfileTO findByEmail(String email);
-		
+			
 	UserProfileTO updateProfile(UserProfileTO userProfileTO);
 	
 	List<UserStatisticsTO> readRanking();
+	
+	UserStatisticsTO readUserStatistics(Long id);
+	
+	void saveUserStatistics(UserStatisticsTO userStatisticsTO);
 }

@@ -6,7 +6,7 @@ public class RankingTO {
 	
 	private int userRankingPosition;
 	private int userLevel;
-	private List<UserStatisticsTO> listOfUserStatistics;
+	private List<UserStatisticsTO> listOfUsersStatistics;
 	
 	public int getUserRankingPosition() {
 		return userRankingPosition;
@@ -20,10 +20,10 @@ public class RankingTO {
 	public void setUserLevel(int userLevel) {
 		this.userLevel = userLevel;
 	}
-	public List<UserStatisticsTO> getListOfUserStatistics() {
-		return listOfUserStatistics;
+	public List<UserStatisticsTO> getListOfUsersStatistics() {
+		return listOfUsersStatistics;
 	}
-	public void setListOfUserStatistics(List<UserStatisticsTO> listOfAllUsersStatistics) {
-		this.listOfUserStatistics = listOfAllUsersStatistics;
+	public void setListOfUsersStatistics(List<UserStatisticsTO> listOfUsersStatistics) {
+		this.listOfUsersStatistics = listOfUsersStatistics;
 	}
 }

@@ -7,4 +7,6 @@ import com.capgemini.chess.service.to.UserStatisticsTO;
 public interface ReadService {
 
 	List<UserStatisticsTO> readRanking();
+	
+	UserStatisticsTO readUserStatistics(Long id);
 }

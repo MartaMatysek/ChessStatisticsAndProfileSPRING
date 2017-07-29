@@ -1,5 +1,8 @@
 package com.capgemini.chess.service.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.capgemini.chess.dataaccess.entities.UserStatisticsEntity;
 import com.capgemini.chess.service.to.UserStatisticsTO;
 
@@ -33,5 +36,13 @@ public class UserStatisticsMapper {
 		}
 		
 		return null;
+	}
+	
+	public static List<UserStatisticsTO> map2TOs(List<UserStatisticsEntity> userStatisticsEntities) {
+		return userStatisticsEntities.stream().map(UserStatisticsMapper::map).collect(Collectors.toList());
+	}
+
+	public static List<UserStatisticsEntity> map2Entities(List<UserStatisticsTO> userStatisticsTOs) {
+		return userStatisticsTOs.stream().map(UserStatisticsMapper::map).collect(Collectors.toList());
 	}
 }

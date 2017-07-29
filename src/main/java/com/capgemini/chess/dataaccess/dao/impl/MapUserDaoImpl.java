@@ -1,6 +1,8 @@
 package com.capgemini.chess.dataaccess.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,7 @@ import com.capgemini.chess.dataaccess.entities.UserProfileEntity;
 import com.capgemini.chess.dataaccess.entities.UserStatisticsEntity;
 import com.capgemini.chess.service.access.dao.UserDao;
 import com.capgemini.chess.service.mapper.UserProfileMapper;
+import com.capgemini.chess.service.mapper.UserStatisticsMapper;
 import com.capgemini.chess.service.to.UserProfileTO;
 import com.capgemini.chess.service.to.UserStatisticsTO;
 
@@ -24,12 +27,6 @@ public class MapUserDaoImpl implements UserDao{
 		UserProfileEntity userProfileEntity = userProfiles.values().stream().filter(u -> u.getId().equals(id)).findFirst().orElse(null);
 		return UserProfileMapper.map(userProfileEntity);
 	}
-
-	@Override
-	public UserProfileTO findByEmail(String email) {
-		UserProfileEntity userProfileEntity = userProfiles.values().stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
-		return UserProfileMapper.map(userProfileEntity);
-	}
 	
 	@Override
 	public UserProfileTO updateProfile(UserProfileTO userProfileTO) {
@@ -40,11 +37,33 @@ public class MapUserDaoImpl implements UserDao{
 
 	@Override
 	public List<UserStatisticsTO> readRanking(){
-		List<UserStatisticsEntity> userStatisticsEntities = new ArrayList<>();
+		List<UserStatisticsEntity> usersStatisticsEntities = new ArrayList<>();
 		for(int i = 0; i < userProfiles.size(); i++){
-			userStatisticsEntities.add(userProfiles.get(i).getUserStatistics());
+			usersStatisticsEntities.add(userProfiles.get(i).getUserStatistics());
 		}
 		
-		return null;
+		sort(usersStatisticsEntities);
+		
+		return UserStatisticsMapper.map2TOs(usersStatisticsEntities);
+	}
+	
+	private List<UserStatisticsEntity> sort(List<UserStatisticsEntity> listOfUsersStatistics){
+		Collections.sort(listOfUsersStatistics, Comparator.comparingInt(UserStatisticsEntity::getPoints).reversed());
+		return listOfUsersStatistics;
+	}
+	
+	@Override
+	public UserStatisticsTO readUserStatistics(Long id){
+		UserProfileEntity userProfileEntity = userProfiles.values().stream().filter(u -> u.getId().equals(id)).findFirst().orElse(null);
+		UserStatisticsEntity userStatisticsEntity = userProfileEntity.getUserStatistics();
+		return UserStatisticsMapper.map(userStatisticsEntity);	
+	}
+	
+	@Override
+	public void saveUserStatistics(UserStatisticsTO userStatisticsTO){
+		UserStatisticsEntity userStatisticsEntity = UserStatisticsMapper.map(userStatisticsTO);
+		Long id = userStatisticsEntity.getId();
+		UserProfileEntity userProfileEntity = userProfiles.values().stream().filter(u -> u.getId().equals(id)).findFirst().orElse(null);
+		userProfileEntity.setUserStatistics(userStatisticsEntity);
 	}
 }
