@@ -17,5 +17,4 @@ public class MatchSaveServiceImpl implements MatchSaveService{
 	public void save(MatchTO matchTO) {
 		matchDao.saveMatch(matchTO);
 	}
-
 }
