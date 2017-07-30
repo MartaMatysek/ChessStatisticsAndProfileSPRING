@@ -10,8 +10,12 @@ import com.capgemini.chess.service.to.MatchTO;
 @Service
 public class MatchSaveServiceImpl implements MatchSaveService{
 	
-	@Autowired
 	private MatchDao matchDao;
+
+	@Autowired
+	public MatchSaveServiceImpl(MatchDao matchDao) {
+		this.matchDao = matchDao;
+	}
 
 	@Override
 	public void save(MatchTO matchTO) {

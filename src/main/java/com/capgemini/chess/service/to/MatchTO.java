@@ -3,33 +3,40 @@ package com.capgemini.chess.service.to;
 import com.capgemini.chess.dataaccess.enums.MatchResult;
 
 public class MatchTO {
-	
-	private Long matchId;
-	private Long FirstPlayerId;
-	private Long SecondPlayerId;
+
+	private long matchId;
+	private long firstPlayerId;
+	private long secondPlayerId;
 	private MatchResult matchResult;
-	
-	public Long getMatchId() {
+
+	public long getMatchId() {
 		return matchId;
 	}
-	public void setMatchId(Long matchId) {
+
+	public void setMatchId(long matchId) {
 		this.matchId = matchId;
 	}
-	public Long getFirstPlayerId() {
-		return FirstPlayerId;
+
+	public long getFirstPlayerId() {
+		return firstPlayerId;
 	}
-	public void setFirstPlayerId(Long firstPlayerId) {
-		FirstPlayerId = firstPlayerId;
+
+	public void setFirstPlayerId(long firstPlayerId) {
+		this.firstPlayerId = firstPlayerId;
 	}
-	public Long getSecondPlayerId() {
-		return SecondPlayerId;
+
+	public long getSecondPlayerId() {
+		return secondPlayerId;
 	}
-	public void setSecondPlayerId(Long secondPlayerId) {
-		SecondPlayerId = secondPlayerId;
+
+	public void setSecondPlayerId(long secondPlayerId) {
+		this.secondPlayerId = secondPlayerId;
 	}
+
 	public MatchResult getMatchResult() {
 		return matchResult;
 	}
+
 	public void setMatchResult(MatchResult matchResult) {
 		this.matchResult = matchResult;
 	}

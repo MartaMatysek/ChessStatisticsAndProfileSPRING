@@ -12,10 +12,14 @@ import com.capgemini.chess.service.to.UserProfileTO;
 @Service
 public class UserUpdateProfileServiceImpl implements UserUpdateProfileService{
 	
-	@Autowired
 	private UserValidationService userValidation;
-	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	public UserUpdateProfileServiceImpl(UserValidationService userValidation, UserDao userDao) {
+		this.userValidation = userValidation;
+		this.userDao = userDao;
+	}
 
 	@Override
 	public UserProfileTO update(UserProfileTO userProfileTO) throws UserValidationException {

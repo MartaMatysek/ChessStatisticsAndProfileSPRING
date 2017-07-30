@@ -12,10 +12,14 @@ import com.capgemini.chess.service.to.RankingTO;
 @Service
 public class RankingServiceImpl implements RankingService{
 	
-	@Autowired
 	private UserValidationService userIdValidation;
-	@Autowired
 	private RankingCreationService rankingCreation;
+	
+	@Autowired
+	public RankingServiceImpl(UserValidationService userIdValidation, RankingCreationService rankingCreation) {
+		this.userIdValidation = userIdValidation;
+		this.rankingCreation = rankingCreation;
+	}
 
 	@Override
 	public RankingTO getRanking(Long id) throws UserValidationException{

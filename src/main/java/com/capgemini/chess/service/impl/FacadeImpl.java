@@ -15,12 +15,17 @@ import com.capgemini.chess.service.to.UserProfileTO;
 @Service
 public class FacadeImpl implements Facade {
 	
-	@Autowired
 	private RankingService ranking;
-	@Autowired
 	private MatchRegisterService matchRegister;
-	@Autowired
 	private UserUpdateProfileService userUpdateProfile;
+
+	@Autowired
+	public FacadeImpl(RankingService ranking, MatchRegisterService matchRegister,
+			UserUpdateProfileService userUpdateProfile) {
+		this.ranking = ranking;
+		this.matchRegister = matchRegister;
+		this.userUpdateProfile = userUpdateProfile;
+	}
 
 	@Override
 	public RankingTO getRanking(Long id) throws UserValidationException {

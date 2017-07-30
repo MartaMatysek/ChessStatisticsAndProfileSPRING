@@ -10,9 +10,13 @@ import com.capgemini.chess.service.to.UserStatisticsTO;
 @Service
 public class StatisticsSaveServiceImpl implements StatisticsSaveService {
 
-	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	public StatisticsSaveServiceImpl(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
 	@Override
 	public void save(UserStatisticsTO userStatisticsTO) {
 		userDao.saveUserStatistics(userStatisticsTO);		

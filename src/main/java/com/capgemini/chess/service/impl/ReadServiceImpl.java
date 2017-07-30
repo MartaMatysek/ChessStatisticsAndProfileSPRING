@@ -12,9 +12,13 @@ import com.capgemini.chess.service.to.UserStatisticsTO;
 @Service
 public class ReadServiceImpl implements ReadService {
 
-	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	public ReadServiceImpl(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
 	@Override
 	public List<UserStatisticsTO> readRanking(){
 		List<UserStatisticsTO> listOfUserStatistics = userDao.readRanking();

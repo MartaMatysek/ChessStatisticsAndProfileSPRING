@@ -13,11 +13,15 @@ import com.capgemini.chess.service.to.UserStatisticsTO;
 @Service
 public class StatisticsUpdateServiceImpl implements StatisticsUpdateService{
 
-	@Autowired
 	private ReadService readMatch;
-	@Autowired
 	private StatisticsSaveService saveStatistics;
 	
+	@Autowired
+	public StatisticsUpdateServiceImpl(ReadService readMatch, StatisticsSaveService saveStatistics) {
+		this.readMatch = readMatch;
+		this.saveStatistics = saveStatistics;
+	}
+
 	@Override
 	public void update(MatchTO matchTO) {
 		MatchResult result = matchTO.getMatchResult();

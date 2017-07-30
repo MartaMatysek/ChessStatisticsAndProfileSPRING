@@ -11,12 +11,15 @@ import com.capgemini.chess.service.to.MatchTO;
 @Service
 public class MatchRegisterServiceImpl implements MatchRegisterService{
 	
-	@Autowired
 	private StatisticsUpdateService statisticsUpdate;
-	@Autowired
 	private MatchSaveService matchSave;
 	
-	
+	@Autowired
+	public MatchRegisterServiceImpl(StatisticsUpdateService statisticsUpdate, MatchSaveService matchSave) {
+		this.statisticsUpdate = statisticsUpdate;
+		this.matchSave = matchSave;
+	}
+
 	@Override
 	public void register(MatchTO matchTO){
 		statisticsUpdate.update(matchTO);

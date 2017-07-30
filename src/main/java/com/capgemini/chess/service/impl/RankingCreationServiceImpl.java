@@ -1,5 +1,7 @@
 package com.capgemini.chess.service.impl;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,28 +15,38 @@ import com.capgemini.chess.service.to.UserStatisticsTO;
 @Service
 public class RankingCreationServiceImpl implements RankingCreationService{
 	
-	@Autowired
 	private ReadService readService;	
 
+	@Autowired
+	public RankingCreationServiceImpl(ReadService readService){
+		this.readService = readService;
+	}
+	
 	@Override
-	public RankingTO create(Long id){
+	public RankingTO create(long id){
 		RankingTO ranking = new RankingTO();
 		List<UserStatisticsTO> listOfUsersStatistics = readService.readRanking();
-		int index = getUserPossition(listOfUsersStatistics, id);
+		List<UserStatisticsTO> listOfUsersStatisticsResult = sort(listOfUsersStatistics);
+		int index = getUserPossition(listOfUsersStatisticsResult, id);
 		ranking.setUserRankingPosition(index+1);
-		ranking.setUserLevel(listOfUsersStatistics.get(index).getLevel());
-		ranking.setListOfUsersStatistics(listOfUsersStatistics);
+		ranking.setUserLevel(listOfUsersStatisticsResult.get(index).getLevel());
+		ranking.setListOfUsersStatistics(listOfUsersStatisticsResult);
 		
 		return ranking;
 	}
-	
-	private int getUserPossition(List<UserStatisticsTO> listOfUsersStatistics, Long id){
+
+	private int getUserPossition(List<UserStatisticsTO> listOfUsersStatistics, long id){
 		for(UserStatisticsTO userRankingPosition: listOfUsersStatistics){
-			if(userRankingPosition.getId().equals(id)){
+			if(userRankingPosition.getId() == id){
 				return listOfUsersStatistics.indexOf(userRankingPosition);
 			}
 		}
 		
 		return 0;
+	}
+	
+	private List<UserStatisticsTO> sort(List<UserStatisticsTO> listOfUsersStatistics){
+		Collections.sort(listOfUsersStatistics, Comparator.comparingInt(UserStatisticsTO::getPoints).reversed());
+		return listOfUsersStatistics;
 	}
 }

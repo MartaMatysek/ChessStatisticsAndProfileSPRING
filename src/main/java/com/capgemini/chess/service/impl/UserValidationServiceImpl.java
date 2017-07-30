@@ -11,8 +11,12 @@ import com.capgemini.chess.service.to.UserProfileTO;
 @Service
 public class UserValidationServiceImpl implements UserValidationService{
 	
+	private UserDao userDao;	
+
 	@Autowired
-	private UserDao userDao;
+	public UserValidationServiceImpl(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
 	@Override
 	public void validate(Long id) throws UserValidationException{
