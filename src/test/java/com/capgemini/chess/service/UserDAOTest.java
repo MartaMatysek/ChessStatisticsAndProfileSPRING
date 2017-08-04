@@ -71,7 +71,7 @@ public class UserDAOTest {
 		List<UserStatisticsTO> usersRanking = userDao.readRanking();
 		
 		//then
-		assertEquals(3, usersRanking.size());
+		assertEquals(6, usersRanking.size());
 		assertEquals(20,usersRanking.get(0).getPoints());
 	}
 	

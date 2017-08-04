@@ -19,4 +19,8 @@ public interface UserDao {
 	UserStatisticsTO readUserStatistics(Long id);
 	
 	void saveUserStatistics(UserStatisticsTO userStatisticsTO);
+	
+	List<UserProfileTO> readUsersByLevel(int level);
+	
+	List<UserProfileTO> readUsersByWonMatches(int wonMatches);
 }

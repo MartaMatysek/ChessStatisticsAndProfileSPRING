@@ -18,7 +18,7 @@ public class MatchSaveServiceImpl implements MatchSaveService{
 	}
 
 	@Override
-	public void save(MatchTO matchTO) {
-		matchDao.saveMatch(matchTO);
+	public MatchTO save(MatchTO matchTO) {
+		return matchDao.saveMatch(matchTO);
 	}
 }

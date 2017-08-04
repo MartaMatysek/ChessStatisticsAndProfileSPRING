@@ -1,7 +1,7 @@
 package com.capgemini.chess.service;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,8 +26,7 @@ public class MatchRegisterServiceTest {
 		MatchRegisterService registerMatch = new MatchRegisterServiceImpl(statisticsUpdate, matchSave);
 		MatchTO match = new MatchTO();
 		
-		doNothing().when(statisticsUpdate).update(match);
-		doNothing().when(matchSave).save(match);
+		when(matchSave.save(match)).thenReturn(match);
 		
 		//when
 		registerMatch.register(match);

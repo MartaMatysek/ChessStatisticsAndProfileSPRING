@@ -21,9 +21,9 @@ public class MatchRegisterServiceImpl implements MatchRegisterService{
 	}
 
 	@Override
-	public void register(MatchTO matchTO){
+	public MatchTO register(MatchTO matchTO){
 		statisticsUpdate.update(matchTO);
-		matchSave.save(matchTO);
+		return matchSave.save(matchTO);
 	}
 
 }

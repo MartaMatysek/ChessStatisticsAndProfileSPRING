@@ -26,6 +26,8 @@ public class FacadeImpl implements Facade {
 		this.matchRegister = matchRegister;
 		this.userUpdateProfile = userUpdateProfile;
 	}
+	
+	public FacadeImpl() {}
 
 	@Override
 	public RankingTO getRanking(Long id) throws UserValidationException {
@@ -33,8 +35,8 @@ public class FacadeImpl implements Facade {
 	}
 	
 	@Override
-	public void registerMatch(MatchTO matchTO){
-		matchRegister.register(matchTO);
+	public MatchTO registerMatch(MatchTO matchTO){
+		return matchRegister.register(matchTO);
 	}
 	
 	@Override

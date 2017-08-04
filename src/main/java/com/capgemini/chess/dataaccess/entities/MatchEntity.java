@@ -1,14 +1,10 @@
 package com.capgemini.chess.dataaccess.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 import com.capgemini.chess.dataaccess.enums.MatchResult;
 
-@Entity
 public class MatchEntity {
 
-	@Id
 	private Long matchId;
 	private Long firstPlayerId;
 	private Long secondPlayerId;

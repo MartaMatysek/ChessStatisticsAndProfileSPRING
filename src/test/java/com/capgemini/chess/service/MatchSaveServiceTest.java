@@ -1,5 +1,5 @@
 package com.capgemini.chess.service;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
@@ -24,7 +24,7 @@ public class MatchSaveServiceTest {
 		MatchSaveService saveMatch = new MatchSaveServiceImpl(matchDao);
 		MatchTO match = new MatchTO();
 		
-		doNothing().when(matchDao).saveMatch(match);
+		when(matchDao.saveMatch(match)).thenReturn(match);
 		
 		//when
 		saveMatch.save(match);

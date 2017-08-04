@@ -1,12 +1,8 @@
 package com.capgemini.chess.dataaccess.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
-@Entity
 public class UserStatisticsEntity {
 
-	@Id
 	private Long id;
 	private int points;
 	private int level;

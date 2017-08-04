@@ -9,7 +9,7 @@ public interface Facade {
 	
 	RankingTO getRanking(Long id) throws UserValidationException;
 	
-	void registerMatch(MatchTO matchTO);
+	MatchTO registerMatch(MatchTO matchTO);
 	
 	UserProfileTO updateProfile(UserProfileTO userProfileTO) throws UserValidationException;
 }

@@ -19,6 +19,7 @@ public class UserProfileMapper {
 			userProfileTO.setName(userProfileEntity.getName());
 			userProfileTO.setPassword(userProfileEntity.getPassword());
 			userProfileTO.setSurname(userProfileEntity.getSurname());
+			userProfileTO.setUserStatistics(UserStatisticsMapper.map(userProfileEntity.getUserStatistics()));
 			return userProfileTO;
 		}
 		return null;
@@ -35,6 +36,7 @@ public class UserProfileMapper {
 			userProfileEntity.setName(userProfileTO.getName());
 			userProfileEntity.setPassword(userProfileTO.getPassword());
 			userProfileEntity.setSurname(userProfileTO.getSurname());
+			userProfileEntity.setUserStatistics(UserStatisticsMapper.map(userProfileTO.getUserStatistics()));
 			return userProfileEntity;
 		}
 		return null;

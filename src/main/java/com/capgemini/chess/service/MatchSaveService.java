@@ -4,5 +4,5 @@ import com.capgemini.chess.service.to.MatchTO;
 
 public interface MatchSaveService {
 
-	void save(MatchTO matchTO);
+	MatchTO save(MatchTO matchTO);
 }

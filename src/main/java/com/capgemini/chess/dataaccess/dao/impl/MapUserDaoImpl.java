@@ -17,6 +17,67 @@ import com.capgemini.chess.service.to.UserStatisticsTO;
 public class MapUserDaoImpl implements UserDao{
 	
 	private List<UserProfileEntity> userProfiles = new ArrayList<>();
+	
+	{
+		UserStatisticsEntity firstStatUser = new UserStatisticsEntity();
+		firstStatUser.setId(1L);
+		firstStatUser.setPoints(20);
+		firstStatUser.setLevel(2);
+		firstStatUser.setNumberOfWonMatches(4);
+		firstStatUser.setNumberOfLostMatches(1);
+		firstStatUser.setNumberOfDrawMatches(2);
+		
+		UserProfileEntity firstUser = new UserProfileEntity();
+		firstUser.setId(1L);
+		firstUser.setLogin("janeczek");
+		firstUser.setPassword("jan123");
+		firstUser.setName("Jan");
+		firstUser.setSurname("Kowalski");
+		firstUser.setEmail("j@wp.pl");
+		firstUser.setAboutMe("I am who I am.");
+		firstUser.setLifeMotto("Carpie Diem");
+		firstUser.setUserStatistics(firstStatUser);
+		
+		UserStatisticsEntity secondUserStat = new UserStatisticsEntity();
+		secondUserStat.setId(2L);
+		secondUserStat.setPoints(5);
+		secondUserStat.setLevel(1);
+		secondUserStat.setNumberOfWonMatches(3);
+		secondUserStat.setNumberOfLostMatches(5);
+		secondUserStat.setNumberOfDrawMatches(7);
+		
+		UserProfileEntity secondUser = new UserProfileEntity();
+		secondUser.setId(2L);
+		secondUser.setLogin("marecki");
+		secondUser.setPassword("ma10nie11");
+		secondUser.setName("Marek");
+		secondUser.setSurname("Abacki");
+		secondUser.setAboutMe("I like dog.");
+		secondUser.setLifeMotto("Life if easy.");
+		secondUser.setUserStatistics(secondUserStat);
+		
+		UserStatisticsEntity thirdUserStat = new UserStatisticsEntity();
+		thirdUserStat.setId(3L);
+		thirdUserStat.setPoints(55);
+		thirdUserStat.setLevel(3);
+		thirdUserStat.setNumberOfWonMatches(20);
+		thirdUserStat.setNumberOfLostMatches(9);
+		thirdUserStat.setNumberOfDrawMatches(1);
+	
+		UserProfileEntity thirdUser = new UserProfileEntity();
+		thirdUser.setId(3L);
+		thirdUser.setLogin("mis");
+		thirdUser.setPassword("haslo123");
+		thirdUser.setName("Michał");
+		thirdUser.setSurname("Michals");
+		thirdUser.setAboutMe("Smile.");
+		thirdUser.setLifeMotto("Chess");
+		thirdUser.setUserStatistics(thirdUserStat);
+		
+		userProfiles.add(firstUser);
+		userProfiles.add(secondUser);
+		userProfiles.add(thirdUser);
+	}
 
 	@Override
 	public void addAll(List<UserProfileEntity> users) {
@@ -61,4 +122,29 @@ public class MapUserDaoImpl implements UserDao{
 		UserProfileEntity userProfileEntity = userProfiles.stream().filter(u -> u.getId().equals(id)).findFirst().orElse(null);
 		userProfileEntity.setUserStatistics(userStatisticsEntity);
 	}
+	
+	@Override
+	public List<UserProfileTO> readUsersByLevel(int level){
+		List<UserProfileEntity> usersWithGivenLevel = new ArrayList<>();
+		for(UserProfileEntity user : userProfiles){
+			if(user.getUserStatistics().getLevel()==level){
+				usersWithGivenLevel.add(user);
+			}
+		}
+		
+		return UserProfileMapper.map2TOs(usersWithGivenLevel);		
+	}
+	
+	@Override
+	public List<UserProfileTO> readUsersByWonMatches(int wonMatches){
+		List<UserProfileEntity> usersWithGivenLevel = new ArrayList<>();
+		for(UserProfileEntity user : userProfiles){
+			if(user.getUserStatistics().getNumberOfWonMatches()==wonMatches){
+				usersWithGivenLevel.add(user);
+			}
+		}
+		
+		return UserProfileMapper.map2TOs(usersWithGivenLevel);		
+	}
+	
 }

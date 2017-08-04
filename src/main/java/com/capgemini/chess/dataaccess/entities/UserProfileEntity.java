@@ -1,12 +1,8 @@
 package com.capgemini.chess.dataaccess.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
-@Entity
 public class UserProfileEntity {
 		
-	@Id
 	private Long id;
 	private String login;
 	private String password;
