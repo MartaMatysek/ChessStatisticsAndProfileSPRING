@@ -23,4 +23,6 @@ public interface UserDao {
 	List<UserProfileTO> readUsersByLevel(int level);
 	
 	List<UserProfileTO> readUsersByWonMatches(int wonMatches);
+	
+	List<UserProfileTO> readUsersByName(String name);
 }

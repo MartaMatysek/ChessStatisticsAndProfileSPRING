@@ -26,4 +26,8 @@ public class ReadServiceRest {
 		return readService.readUsersByLevelOrWonMatches(level, wonMatches);
 	}
 
+	@RequestMapping(value = "/readUsers/{name}", method= RequestMethod.GET)
+	public List<UserProfileTO> readUsersByName(@PathVariable("name") String name) throws UserValidationException {
+		return readService.readUsersByName(name);
+	}
 }

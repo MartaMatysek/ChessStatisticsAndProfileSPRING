@@ -56,4 +56,42 @@ public class UserStatisticsTO {
 	public void setNumberOfDrawMatches(int numberOfDrawMatches) {
 		this.numberOfDrawMatches = numberOfDrawMatches;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + level;
+		result = prime * result + numberOfDrawMatches;
+		result = prime * result + numberOfLostMatches;
+		result = prime * result + numberOfWonMatches;
+		result = prime * result + points;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserStatisticsTO other = (UserStatisticsTO) obj;
+		if (id != other.id)
+			return false;
+		if (level != other.level)
+			return false;
+		if (numberOfDrawMatches != other.numberOfDrawMatches)
+			return false;
+		if (numberOfLostMatches != other.numberOfLostMatches)
+			return false;
+		if (numberOfWonMatches != other.numberOfWonMatches)
+			return false;
+		if (points != other.points)
+			return false;
+		return true;
+	}
+
 }

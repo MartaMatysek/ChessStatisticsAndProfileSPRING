@@ -35,16 +35,26 @@ public class ReadServiceImpl implements ReadService {
 	
 	public List<UserProfileTO> readUsersByLevelOrWonMatches(int level, int wonMatches){
 		List<UserProfileTO> users = new ArrayList<>();
-		users.addAll(readUsersByGivenLevel(level));
-		users.addAll(readUsersByGivenWonMatches(wonMatches));
+		users.addAll(readUsersByLevel(level));
+		users.addAll(readUsersByWonMatches(wonMatches));
 		return users;
 	}
 	
-	private List<UserProfileTO> readUsersByGivenLevel(int level){
+	private List<UserProfileTO> readUsersByLevel(int level){
 		return userDao.readUsersByLevel(level);
 	}
 	
-	private List<UserProfileTO> readUsersByGivenWonMatches(int wonMatches){
+	private List<UserProfileTO> readUsersByWonMatches(int wonMatches){
 		return userDao.readUsersByWonMatches(wonMatches);
+	}
+	
+	public List<UserProfileTO> readUsersByName(String name){
+		List<UserProfileTO> users = new ArrayList<>();
+		users.addAll(readUsersByGivenName(name));
+		return users;
+	}
+	
+	private List<UserProfileTO> readUsersByGivenName(String name){
+		return userDao.readUsersByName(name);
 	}
 }

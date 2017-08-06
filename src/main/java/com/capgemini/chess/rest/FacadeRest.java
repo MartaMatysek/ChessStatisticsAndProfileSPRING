@@ -2,10 +2,10 @@ package com.capgemini.chess.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.capgemini.chess.exception.UserValidationException;
 import com.capgemini.chess.service.Facade;
@@ -20,8 +20,8 @@ public class FacadeRest{
 	@Autowired
 	private Facade facade;
 	
-	@RequestMapping(value = "/readRanking", method= RequestMethod.GET)
-	public RankingTO readRanking(@RequestParam("id") Long id) throws UserValidationException {
+	@RequestMapping(value = "/readRanking/{id}", method= RequestMethod.GET)
+	public RankingTO readRanking(@PathVariable("id") Long id) throws UserValidationException {
 		return facade.getRanking(id);
 	}
 	

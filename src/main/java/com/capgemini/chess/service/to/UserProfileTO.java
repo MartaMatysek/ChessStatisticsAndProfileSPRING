@@ -154,6 +154,4 @@ public class UserProfileTO {
 		return true;
 	}
 	
-	
-
 }

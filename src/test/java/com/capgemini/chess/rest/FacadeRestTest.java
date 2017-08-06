@@ -2,13 +2,13 @@ package com.capgemini.chess.rest;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -44,39 +44,32 @@ public class FacadeRestTest {
 	public void shouldGetUserRanking() throws Exception {
 		// given
 		RankingTO ranking = new RankingTO();
-		ranking.setUserLevel(2);
-		ranking.setUserRankingPosition(2);
-		ranking.setListOfUsersStatistics(null);
 
 		// when
 		when(facade.getRanking(1L)).thenReturn(ranking);
 
 		// then
-		ResultActions response = this.mockMvc.perform(get("/readRanking?id=1").accept(MediaType.APPLICATION_JSON)
+		ResultActions response = this.mockMvc.perform(get("/readRanking/1").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content("1"));
 
-		response.andExpect(status().isOk());
-		response.andExpect(jsonPath("userRankingPosition").value(ranking.getUserRankingPosition()));
-		response.andExpect(jsonPath("userLevel").value(ranking.getUserLevel()));
+		response.andExpect(status().isOk())
+				.andExpect(jsonPath("userRankingPosition").value(ranking.getUserRankingPosition()))
+				.andExpect(jsonPath("userLevel").value(ranking.getUserLevel()));
 
+		verify(facade).getRanking(1L);
 	}
 
 	@Test(expected = Exception.class)
 	public void shouldThrowExceptionDuringGetUserRanking() throws Exception {
-		// given
-		RankingTO ranking = new RankingTO();
-		ranking.setUserLevel(2);
-		ranking.setUserRankingPosition(2);
-		ranking.setListOfUsersStatistics(null);
-
-		// when
+		// given when
 		when(facade.getRanking(1L)).thenThrow(new Exception("User with given ID does not exsist!"));
 
 		// then
-		ResultActions response = this.mockMvc.perform(get("/readRanking?id=1").accept(MediaType.APPLICATION_JSON)
+		ResultActions response = this.mockMvc.perform(get("/readRanking/1").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content("1"));
 
 		assertEquals(response, new Exception());
+		verify(facade).getRanking(1L);
 	}
 
 	@Test
@@ -87,7 +80,7 @@ public class FacadeRestTest {
 		match.setFirstPlayerId(1);
 		match.setSecondPlayerId(2);
 		match.setMatchResult(MatchResult.LOST);
-		String matchJson = "{\"matchId\": 1, \"firstPlayerId\": 1, \"secondPlayerId\": 2, \"matchResult\": \"LOST\"}";
+		String matchJson = new ObjectMapper().writeValueAsString(match);
 
 		// when
 		when(facade.registerMatch(match)).thenReturn(match);
@@ -96,15 +89,15 @@ public class FacadeRestTest {
 		ResultActions response = this.mockMvc.perform(post("/saveMatch").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(matchJson.getBytes()));
 
-		response.andExpect(status().isOk());
-		response.andExpect(jsonPath("matchId").value((int) match.getMatchId()));
+		response.andExpect(status().isOk()).andExpect(jsonPath("matchId").value((int) match.getMatchId()));
+		verify(facade).registerMatch(match);
 	}
 
 	@Test(expected = AssertionError.class)
 	public void shouldThrowExceptionDuringSaveMatch() throws Exception {
 		// given
 		MatchTO match = new MatchTO();
-		String matchJson = "{\"matchId\": 1, \"firstPlayerId\": 1, \"secondPlayerId\": 2, \"matchResult\": \"LOST\"}";
+		String matchJson = new ObjectMapper().writeValueAsString(match);
 
 		// when
 		when(facade.registerMatch(match)).thenReturn(match);
@@ -114,11 +107,12 @@ public class FacadeRestTest {
 				.contentType(MediaType.APPLICATION_JSON).content(matchJson.getBytes()));
 
 		assertEquals(response, new AssertionError());
+		verify(facade).registerMatch(match);
 	}
 
 	@Test
 	public void shouldUpdateProfile() throws Exception {
-		// given		
+		// given
 		UserProfileTO userAfterUpdate = new UserProfileTO();
 		userAfterUpdate.setId(1);
 		userAfterUpdate.setName("Janek");
@@ -128,36 +122,37 @@ public class FacadeRestTest {
 		userBeforeUpdate.setId(1);
 		userBeforeUpdate.setName("Jan");
 		userBeforeUpdate.setAboutMe("I'm Janek.");
-		
+
 		String userJson = new ObjectMapper().writeValueAsString(userBeforeUpdate);
 
 		// when
-		when(facade.updateProfile(Mockito.any())).thenReturn(userAfterUpdate);
+		when(facade.updateProfile(userBeforeUpdate)).thenReturn(userAfterUpdate);
 
 		// then
 		ResultActions response = this.mockMvc.perform(post("/updateProfile").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(userJson.getBytes()));
 
-		response.andExpect(status().isOk());
-		response.andExpect(jsonPath("id").value((int)userAfterUpdate.getId()));
-		response.andExpect(jsonPath("name").value(userAfterUpdate.getName()));
-		response.andExpect(jsonPath("aboutMe").value(userAfterUpdate.getAboutMe()));
+		response.andExpect(status().isOk()).andExpect(jsonPath("id").value((int) userAfterUpdate.getId()))
+				.andExpect(jsonPath("name").value(userAfterUpdate.getName()))
+				.andExpect(jsonPath("aboutMe").value(userAfterUpdate.getAboutMe()));
+		verify(facade).updateProfile(userBeforeUpdate);
 	}
-	
+
 	@Test(expected = AssertionError.class)
-	public void shouldThrowExceptionDuringUpdateProfile() throws Exception{
-		//given 
+	public void shouldThrowExceptionDuringUpdateProfile() throws Exception {
+		// given
 		UserProfileTO user = new UserProfileTO();
 		String userJson = new ObjectMapper().writeValueAsString(user);
-		
-		//when
+
+		// when
 		when(facade.updateProfile(user)).thenReturn(null);
-		
-		//then
+
+		// then
 		ResultActions response = this.mockMvc.perform(post("/updateProfile").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(userJson.getBytes()));
 
 		assertEquals(response, new Exception());
+		verify(facade).updateProfile(user);
 	}
 
 }

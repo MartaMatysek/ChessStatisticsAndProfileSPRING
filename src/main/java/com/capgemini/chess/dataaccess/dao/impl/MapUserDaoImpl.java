@@ -127,7 +127,7 @@ public class MapUserDaoImpl implements UserDao{
 	public List<UserProfileTO> readUsersByLevel(int level){
 		List<UserProfileEntity> usersWithGivenLevel = new ArrayList<>();
 		for(UserProfileEntity user : userProfiles){
-			if(user.getUserStatistics().getLevel()==level){
+			if(user.getUserStatistics().getLevel() == level){
 				usersWithGivenLevel.add(user);
 			}
 		}
@@ -137,14 +137,25 @@ public class MapUserDaoImpl implements UserDao{
 	
 	@Override
 	public List<UserProfileTO> readUsersByWonMatches(int wonMatches){
-		List<UserProfileEntity> usersWithGivenLevel = new ArrayList<>();
+		List<UserProfileEntity> usersWithGivenWonMatches = new ArrayList<>();
 		for(UserProfileEntity user : userProfiles){
-			if(user.getUserStatistics().getNumberOfWonMatches()==wonMatches){
-				usersWithGivenLevel.add(user);
+			if(user.getUserStatistics().getNumberOfWonMatches() == wonMatches){
+				usersWithGivenWonMatches.add(user);
 			}
 		}
 		
-		return UserProfileMapper.map2TOs(usersWithGivenLevel);		
+		return UserProfileMapper.map2TOs(usersWithGivenWonMatches);		
 	}
 	
+	@Override
+	public List<UserProfileTO> readUsersByName(String name){
+		List<UserProfileEntity> usersWithGivenName = new ArrayList<>();
+		for(UserProfileEntity user : userProfiles){
+			if(user.getName().equals(name)){
+				usersWithGivenName.add(user);
+			}
+		}
+		
+		return UserProfileMapper.map2TOs(usersWithGivenName);		
+	}
 }

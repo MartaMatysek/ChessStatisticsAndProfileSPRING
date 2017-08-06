@@ -31,4 +31,36 @@ public class RankingTO {
 	public void setListOfUsersStatistics(List<UserStatisticsTO> listOfUsersStatistics) {
 		this.listOfUsersStatistics = listOfUsersStatistics;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((listOfUsersStatistics == null) ? 0 : listOfUsersStatistics.hashCode());
+		result = prime * result + userLevel;
+		result = prime * result + userRankingPosition;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RankingTO other = (RankingTO) obj;
+		if (listOfUsersStatistics == null) {
+			if (other.listOfUsersStatistics != null)
+				return false;
+		} else if (!listOfUsersStatistics.equals(other.listOfUsersStatistics))
+			return false;
+		if (userLevel != other.userLevel)
+			return false;
+		if (userRankingPosition != other.userRankingPosition)
+			return false;
+		return true;
+	}
+	
 }
