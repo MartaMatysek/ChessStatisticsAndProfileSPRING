@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.capgemini.chess.exception.UserValidationException;
 import com.capgemini.chess.service.UserValidationService;
 import com.capgemini.chess.service.access.dao.UserDao;
+import com.capgemini.chess.service.to.UpdateProfileTO;
 import com.capgemini.chess.service.to.UserProfileTO;
 
 @Service
@@ -24,9 +25,9 @@ public class UserValidationServiceImpl implements UserValidationService{
 	}
 
 	@Override
-	public void validate(UserProfileTO userProfileTO) throws UserValidationException {
-		validateId(userProfileTO.getId());
-		validatePassword(userProfileTO.getPassword());
+	public void validate(UpdateProfileTO updateProfileTO) throws UserValidationException {
+		validateId(updateProfileTO.getId());
+		validatePassword(updateProfileTO.getPassword());
 	}
 
 	private void validateId(Long id) throws UserValidationException {

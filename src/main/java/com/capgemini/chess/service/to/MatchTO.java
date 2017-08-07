@@ -4,32 +4,32 @@ import com.capgemini.chess.dataaccess.enums.MatchResult;
 
 public class MatchTO {
 
-	private long matchId;
-	private long firstPlayerId;
-	private long secondPlayerId;
+	private Long matchId;
+	private Long firstPlayerId;
+	private Long secondPlayerId;
 	private MatchResult matchResult;
 
-	public long getMatchId() {
+	public Long getMatchId() {
 		return matchId;
 	}
 
-	public void setMatchId(long matchId) {
+	public void setMatchId(Long matchId) {
 		this.matchId = matchId;
 	}
 
-	public long getFirstPlayerId() {
+	public Long getFirstPlayerId() {
 		return firstPlayerId;
 	}
 
-	public void setFirstPlayerId(long firstPlayerId) {
+	public void setFirstPlayerId(Long firstPlayerId) {
 		this.firstPlayerId = firstPlayerId;
 	}
 
-	public long getSecondPlayerId() {
+	public Long getSecondPlayerId() {
 		return secondPlayerId;
 	}
 
-	public void setSecondPlayerId(long secondPlayerId) {
+	public void setSecondPlayerId(Long secondPlayerId) {
 		this.secondPlayerId = secondPlayerId;
 	}
 

@@ -10,6 +10,7 @@ import com.capgemini.chess.dataaccess.entities.UserStatisticsEntity;
 import com.capgemini.chess.service.access.dao.UserDao;
 import com.capgemini.chess.service.mapper.UserProfileMapper;
 import com.capgemini.chess.service.mapper.UserStatisticsMapper;
+import com.capgemini.chess.service.to.UpdateProfileTO;
 import com.capgemini.chess.service.to.UserProfileTO;
 import com.capgemini.chess.service.to.UserStatisticsTO;
 
@@ -91,9 +92,9 @@ public class MapUserDaoImpl implements UserDao{
 	}
 	
 	@Override
-	public UserProfileTO updateProfile(UserProfileTO userProfileTO) {
-		UserProfileEntity userProfileEntity = userProfiles.stream().filter(u -> u.getId().equals(userProfileTO.getId())).findFirst().orElse(null);
-		userProfileEntity = UserProfileMapper.update(userProfileEntity, userProfileTO);
+	public UserProfileTO updateProfile(UpdateProfileTO updateProfileTO) {
+		UserProfileEntity userProfileEntity = userProfiles.stream().filter(u -> u.getId().equals(updateProfileTO.getId())).findFirst().orElse(null);
+		userProfileEntity = UserProfileMapper.update(userProfileEntity, updateProfileTO);
 		return UserProfileMapper.map(userProfileEntity);
 	}
 

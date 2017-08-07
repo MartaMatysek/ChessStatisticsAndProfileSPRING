@@ -2,18 +2,18 @@ package com.capgemini.chess.service.to;
 
 public class UserStatisticsTO {
 
-	private long id;
+	private Long id;
 	private int points;
 	private int level;
 	private int numberOfWonMatches;
 	private int numberOfLostMatches;
 	private int numberOfDrawMatches;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

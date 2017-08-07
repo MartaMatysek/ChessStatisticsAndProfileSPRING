@@ -3,6 +3,7 @@ package com.capgemini.chess.service.access.dao;
 import java.util.List;
 
 import com.capgemini.chess.dataaccess.entities.UserProfileEntity;
+import com.capgemini.chess.service.to.UpdateProfileTO;
 import com.capgemini.chess.service.to.UserProfileTO;
 import com.capgemini.chess.service.to.UserStatisticsTO;
 
@@ -12,7 +13,7 @@ public interface UserDao {
 
 	UserProfileTO findById(Long id);
 			
-	UserProfileTO updateProfile(UserProfileTO userProfileTO);
+	UserProfileTO updateProfile(UpdateProfileTO updateProfileTO);
 	
 	List<UserStatisticsTO> readRanking();
 	

@@ -21,6 +21,7 @@ import com.capgemini.chess.dataaccess.enums.MatchResult;
 import com.capgemini.chess.service.Facade;
 import com.capgemini.chess.service.to.MatchTO;
 import com.capgemini.chess.service.to.RankingTO;
+import com.capgemini.chess.service.to.UpdateProfileTO;
 import com.capgemini.chess.service.to.UserProfileTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -76,37 +77,37 @@ public class FacadeRestTest {
 	public void shouldSaveMatch() throws Exception {
 		// given
 		MatchTO match = new MatchTO();
-		match.setMatchId(1);
-		match.setFirstPlayerId(1);
-		match.setSecondPlayerId(2);
+		match.setMatchId(1L);
+		match.setFirstPlayerId(1L);
+		match.setSecondPlayerId(2L);
 		match.setMatchResult(MatchResult.LOST);
 		String matchJson = new ObjectMapper().writeValueAsString(match);
-
+		
 		// when
 		when(facade.registerMatch(match)).thenReturn(match);
 
-		// given
+		//then
 		ResultActions response = this.mockMvc.perform(post("/saveMatch").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(matchJson.getBytes()));
 
-		response.andExpect(status().isOk()).andExpect(jsonPath("matchId").value((int) match.getMatchId()));
+		response.andExpect(status().isOk()).andExpect(jsonPath("matchId").value(match.getMatchId().intValue()));
 		verify(facade).registerMatch(match);
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test(expected = Exception.class)
 	public void shouldThrowExceptionDuringSaveMatch() throws Exception {
 		// given
 		MatchTO match = new MatchTO();
 		String matchJson = new ObjectMapper().writeValueAsString(match);
-
+		
 		// when
 		when(facade.registerMatch(match)).thenReturn(match);
 
-		// given
+		//then
 		ResultActions response = this.mockMvc.perform(post("/saveMatch").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(matchJson.getBytes()));
 
-		assertEquals(response, new AssertionError());
+		assertEquals(response, new Exception());
 		verify(facade).registerMatch(match);
 	}
 
@@ -114,12 +115,12 @@ public class FacadeRestTest {
 	public void shouldUpdateProfile() throws Exception {
 		// given
 		UserProfileTO userAfterUpdate = new UserProfileTO();
-		userAfterUpdate.setId(1);
+		userAfterUpdate.setId(1L);
 		userAfterUpdate.setName("Janek");
 		userAfterUpdate.setAboutMe("I'm from Poland.");
 
-		UserProfileTO userBeforeUpdate = new UserProfileTO();
-		userBeforeUpdate.setId(1);
+		UpdateProfileTO userBeforeUpdate = new UpdateProfileTO();
+		userBeforeUpdate.setId(1L);
 		userBeforeUpdate.setName("Jan");
 		userBeforeUpdate.setAboutMe("I'm Janek.");
 
@@ -132,7 +133,7 @@ public class FacadeRestTest {
 		ResultActions response = this.mockMvc.perform(post("/updateProfile").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(userJson.getBytes()));
 
-		response.andExpect(status().isOk()).andExpect(jsonPath("id").value((int) userAfterUpdate.getId()))
+		response.andExpect(status().isOk()).andExpect(jsonPath("id").value(userAfterUpdate.getId().intValue()))
 				.andExpect(jsonPath("name").value(userAfterUpdate.getName()))
 				.andExpect(jsonPath("aboutMe").value(userAfterUpdate.getAboutMe()));
 		verify(facade).updateProfile(userBeforeUpdate);
@@ -141,7 +142,7 @@ public class FacadeRestTest {
 	@Test(expected = AssertionError.class)
 	public void shouldThrowExceptionDuringUpdateProfile() throws Exception {
 		// given
-		UserProfileTO user = new UserProfileTO();
+		UpdateProfileTO user = new UpdateProfileTO();
 		String userJson = new ObjectMapper().writeValueAsString(user);
 
 		// when

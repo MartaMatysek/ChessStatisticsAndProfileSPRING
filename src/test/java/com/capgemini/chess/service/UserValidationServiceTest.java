@@ -15,6 +15,7 @@ import org.junit.Test;
 import com.capgemini.chess.exception.UserValidationException;
 import com.capgemini.chess.service.access.dao.UserDao;
 import com.capgemini.chess.service.impl.UserValidationServiceImpl;
+import com.capgemini.chess.service.to.UpdateProfileTO;
 import com.capgemini.chess.service.to.UserProfileTO;
 
 
@@ -51,7 +52,7 @@ public class UserValidationServiceTest {
 		userValidation.validate(1L);
 		
 		//then
-		assertEquals(1L, userTO.getId());
+		assertEquals(1, userTO.getId().intValue());
 		verify(userDao).findById(userTO.getId());
 		
 	}
@@ -60,6 +61,10 @@ public class UserValidationServiceTest {
 	public void shouldWrongPasswordValidation() throws UserValidationException{
 		//given
 		UserValidationService userValidation = new UserValidationServiceImpl(userDao);
+		UpdateProfileTO updateUserTO = new UpdateProfileTO();
+		updateUserTO.setId(1L);
+		updateUserTO.setPassword("aaa");
+
 		UserProfileTO userTO = new UserProfileTO();
 		userTO.setId(1L);
 		userTO.setPassword("aaa");
@@ -67,7 +72,7 @@ public class UserValidationServiceTest {
 		when(userDao.findById(1L)).thenReturn(userTO);
 
 		//when
-		userValidation.validate(userTO);
+		userValidation.validate(updateUserTO);
 		
 		//then
 		fail("This test should throw UserValidationException.");		
@@ -77,6 +82,10 @@ public class UserValidationServiceTest {
 	public void shouldExistentPlayerValidation() throws UserValidationException{
 		//given
 		UserValidationService userValidation = new UserValidationServiceImpl(userDao);
+		UpdateProfileTO updateUserTO = new UpdateProfileTO();
+		updateUserTO.setId(1L);
+		updateUserTO.setPassword("aa12345");
+		
 		UserProfileTO userTO = new UserProfileTO();
 		userTO.setId(1L);
 		userTO.setPassword("aa12345");
@@ -84,7 +93,7 @@ public class UserValidationServiceTest {
 		when(userDao.findById(1L)).thenReturn(userTO);
 
 		//when
-		userValidation.validate(userTO);
+		userValidation.validate(updateUserTO);
 		
 		//then
 		verify(userDao).findById(userTO.getId());

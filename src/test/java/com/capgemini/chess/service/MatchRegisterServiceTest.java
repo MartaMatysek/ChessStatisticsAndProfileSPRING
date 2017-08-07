@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.capgemini.chess.exception.MatchValidationException;
+import com.capgemini.chess.exception.UserValidationException;
 import com.capgemini.chess.service.impl.MatchRegisterServiceImpl;
 import com.capgemini.chess.service.to.MatchTO;
 
@@ -20,10 +22,16 @@ public class MatchRegisterServiceTest {
 	@Mock
 	MatchSaveService matchSave;
 	
+	@Mock
+	UserValidationService userValidation;
+	
+	@Mock
+	MatchValidationService matchValidation;
+	
 	@Test
-	public void shouldRegisterMatch(){
+	public void shouldRegisterMatch() throws UserValidationException, MatchValidationException{
 		//given
-		MatchRegisterService registerMatch = new MatchRegisterServiceImpl(statisticsUpdate, matchSave);
+		MatchRegisterService registerMatch = new MatchRegisterServiceImpl(statisticsUpdate, matchSave, userValidation, matchValidation);
 		MatchTO match = new MatchTO();
 		
 		when(matchSave.save(match)).thenReturn(match);

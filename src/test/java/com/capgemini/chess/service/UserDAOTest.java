@@ -10,6 +10,7 @@ import com.capgemini.chess.dataaccess.dao.impl.MapUserDaoImpl;
 import com.capgemini.chess.dataaccess.entities.UserProfileEntity;
 import com.capgemini.chess.dataaccess.entities.UserStatisticsEntity;
 import com.capgemini.chess.service.access.dao.UserDao;
+import com.capgemini.chess.service.to.UpdateProfileTO;
 import com.capgemini.chess.service.to.UserProfileTO;
 import com.capgemini.chess.service.to.UserStatisticsTO;
 
@@ -47,7 +48,7 @@ public class UserDAOTest {
 		//given
 		UserDao userDao = new MapUserDaoImpl();
 		userDao.addAll(usersListForTest());
-		UserProfileTO user = new UserProfileTO();
+		UpdateProfileTO user = new UpdateProfileTO();
 		user.setId(1L);
 		user.setLogin("janeczek");
 		user.setPassword("haslo12345");

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.capgemini.chess.dataaccess.entities.UserProfileEntity;
+import com.capgemini.chess.service.to.UpdateProfileTO;
 import com.capgemini.chess.service.to.UserProfileTO;
 
 public class UserProfileMapper {
@@ -52,6 +53,19 @@ public class UserProfileMapper {
 			userProfileEntity.setPassword(userProfileTO.getPassword());
 			userProfileEntity.setSurname(userProfileTO.getSurname());
 			userProfileEntity.setUserStatistics(UserStatisticsMapper.map(userProfileTO.getUserStatistics()));
+		}
+		return userProfileEntity;
+	}
+	
+	public static UserProfileEntity update(UserProfileEntity userProfileEntity, UpdateProfileTO userProfileTO) {
+		if (userProfileTO != null && userProfileEntity != null) {
+			userProfileEntity.setAboutMe(userProfileTO.getAboutMe());
+			userProfileEntity.setEmail(userProfileTO.getEmail());
+			userProfileEntity.setId(userProfileTO.getId());
+			userProfileEntity.setLifeMotto(userProfileTO.getLifeMotto());
+			userProfileEntity.setName(userProfileTO.getName());
+			userProfileEntity.setPassword(userProfileTO.getPassword());
+			userProfileEntity.setSurname(userProfileTO.getSurname());
 		}
 		return userProfileEntity;
 	}

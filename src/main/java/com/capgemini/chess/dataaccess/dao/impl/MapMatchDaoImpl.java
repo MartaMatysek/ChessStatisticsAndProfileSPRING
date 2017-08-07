@@ -21,18 +21,24 @@ public class MapMatchDaoImpl implements MatchDao{
 		MatchEntity firstMatch = new MatchEntity();
 		firstMatch.setMatchId(1L);
 		firstMatch.setFirstPlayerId(1L);
-		firstMatch.setSecondPlayerId(2l);
+		firstMatch.setSecondPlayerId(2L);
 		firstMatch.setMatchResult(MatchResult.DRAW);
 		
 		MatchEntity secondMatch = new MatchEntity();
-		secondMatch.setMatchId(1L);
-		secondMatch.setFirstPlayerId(1L);
-		secondMatch.setSecondPlayerId(2l);
-		secondMatch.setMatchResult(MatchResult.DRAW);
+		secondMatch.setMatchId(2L);
+		secondMatch.setFirstPlayerId(3L);
+		secondMatch.setSecondPlayerId(4l);
+		secondMatch.setMatchResult(MatchResult.LOST);
 		
 		matches.add(firstMatch);
 		matches.add(secondMatch);
 		
+	}
+	
+	@Override
+	public MatchTO findById(Long id){
+		MatchEntity matchEntity = matches.stream().filter(u -> u.getMatchId().equals(id)).findFirst().orElse(null);
+		return MatchMapper.map(matchEntity);
 	}
 
 	@Override

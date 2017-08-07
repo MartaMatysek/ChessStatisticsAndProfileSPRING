@@ -112,7 +112,7 @@ public class ReadServiceRestTest {
 		ResultActions response = this.mockMvc.perform(get("/readUsers/Jan").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content("1"));
 
-		response.andExpect(status().isOk()).andExpect(jsonPath("[0].id").value((int) user.getId()))
+		response.andExpect(status().isOk()).andExpect(jsonPath("[0].id").value(user.getId().intValue()))
 				.andExpect(jsonPath("[0].name").value(user.getName()));
 
 		verify(readService).readUsersByName("Jan");

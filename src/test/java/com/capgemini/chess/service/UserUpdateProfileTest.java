@@ -16,6 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.capgemini.chess.exception.UserValidationException;
 import com.capgemini.chess.service.access.dao.UserDao;
 import com.capgemini.chess.service.impl.UserUpdateProfileServiceImpl;
+import com.capgemini.chess.service.to.UpdateProfileTO;
 import com.capgemini.chess.service.to.UserProfileTO;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,29 +33,30 @@ public class UserUpdateProfileTest {
 	public void shouldUpdateProfile() throws UserValidationException{
 		//given
 		UserUpdateProfileService userUpdateProfile = new UserUpdateProfileServiceImpl(userValidation, userDao);
+		UpdateProfileTO userBeforeUpdate = new UpdateProfileTO();
 		UserProfileTO userAfterUpdate = new UserProfileTO();
 		
-		when(userDao.updateProfile(userAfterUpdate)).thenReturn(userAfterUpdate);
-		doNothing().when(userValidation).validate(userAfterUpdate);
+		when(userDao.updateProfile(userBeforeUpdate)).thenReturn(userAfterUpdate);
 		
 		//when
-		userUpdateProfile.update(userAfterUpdate);
+		userUpdateProfile.update(userBeforeUpdate);
 		
 		//then
-		verify(userDao, times(1)).updateProfile(userAfterUpdate);
+		verify(userDao).updateProfile(userBeforeUpdate);
 	}
 	
 	@Test(expected= UserValidationException.class)
 	public void shouldThrowExcetionInsteadUpdateProfile() throws UserValidationException{
 		//given
 		UserUpdateProfileService userUpdateProfile = new UserUpdateProfileServiceImpl(userValidation, userDao);
+		UpdateProfileTO userBeforeUpdate = new UpdateProfileTO();
 		UserProfileTO userAfterUpdate = new UserProfileTO();
 		
-		when(userDao.updateProfile(userAfterUpdate)).thenReturn(userAfterUpdate);
-		doThrow(new UserValidationException("Wrong ID!")).when(userValidation).validate(userAfterUpdate);
+		when(userDao.updateProfile(userBeforeUpdate)).thenReturn(userAfterUpdate);
+		doThrow(new UserValidationException("Wrong ID!")).when(userValidation).validate(userBeforeUpdate);
 		
 		//when
-		userUpdateProfile.update(userAfterUpdate);
+		userUpdateProfile.update(userBeforeUpdate);
 		
 		//then
 		fail("This test should throw UserValidationException!");
